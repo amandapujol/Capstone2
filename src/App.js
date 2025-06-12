@@ -23,9 +23,25 @@ export function App(params) {
    }
      
 
-  const handleInputChange = function (event) {
-    log("in handleInputChange()");
-  }
+  const handleInputChange = function(event) {
+  log("in handleInputChange()");
+
+  // Get the 'name' attribute of the input that changed (e.g., 'name', 'email', or 'password')
+  const name = event.target.name;
+
+  // Get the new value typed in the input field
+  const value = event.target.value;
+
+  // Create a copy of the current formObject state
+  let newFormObject = { ...formObject };
+
+  // Update the property corresponding to the input that changed
+  newFormObject[name] = value;
+
+  // Update the state to trigger a re-render with the new value
+  setFormObject(newFormObject);
+}
+
 
   let onCancelClick = function () {
     log("in onCancelClick()");
@@ -33,12 +49,23 @@ export function App(params) {
   }
 
   let onDeleteClick = function () {
-    log("in onDeleteClick()");
+  if (formObject.id >= 0) {
+    deleteById(formObject.id);  
   }
+  setFormObject(blankCustomer); 
+}
+
 
   let onSaveClick = function () {
-    log("in onSaveClick()");
+  if (mode === 'Add') {
+    post(formObject);   // Add new customer to memdb.js
   }
+  if (mode === 'Update') {
+    put(formObject.id, formObject);  // Update existing customer in memdb.js
+  }
+
+  setFormObject(blankCustomer);  // Reset form to blank, clearing selection
+}
 
   return (
     <div>
@@ -78,11 +105,12 @@ export function App(params) {
             <tr>
               <td className={'label'} >Name:</td>
               <td><input
-                type="text"
-                name="name"
-                value={formObject.name}
-                placeholder="Customer Name"
-                required /></td>
+                    type="text"
+                    name="name"
+                    onChange={(e) => handleInputChange(e)}
+                    value={formObject.name}
+                    placeholder="Customer Name"
+                    required /></td>
             </tr>
             <tr>
               <td className={'label'} >Email:</td>
@@ -95,10 +123,13 @@ export function App(params) {
             <tr>
               <td className={'label'} >Pass:</td>
               <td><input
-                type="text"
-                name="password"
-                value={formObject.password}
-                placeholder="password" /></td>
+                  type="password"
+                  name="password"
+                  onChange={(e) => handleInputChange(e)}
+                  value={formObject.password}
+                  placeholder="Password"
+                  required />
+                </td>
             </tr>
             <tr className="button-bar">
               <td colSpan="2">
