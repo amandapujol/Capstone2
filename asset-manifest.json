@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/amandapujol.github.io/Capstone2/static/css/main.1c9b3e01.css",
+    "main.js": "/amandapujol.github.io/Capstone2/static/js/main.e0b2c793.js",
+    "index.html": "/amandapujol.github.io/Capstone2/index.html",
+    "main.1c9b3e01.css.map": "/amandapujol.github.io/Capstone2/static/css/main.1c9b3e01.css.map",
+    "main.e0b2c793.js.map": "/amandapujol.github.io/Capstone2/static/js/main.e0b2c793.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1c9b3e01.css",
+    "static/js/main.e0b2c793.js"
+  ]
+}
